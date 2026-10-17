@@ -381,11 +381,30 @@ function showGlossary(q){
   const inp=$('#glq'); const run=()=>{const s=norm(inp.value.trim());let n=0;$$('#glList .gl').forEach(el=>{const ok=!s||norm(el.textContent).includes(s);el.classList.toggle('hidden',!ok);if(ok)n++;});$('#glNone').classList.toggle('hidden',n>0);};
   inp.oninput=run; if(q){inp.value=q;run();} inp.focus();
 }
+function licenseHTML(){
+  return `<div class="lic"><b>Autor</b><span>🄯 ${esc(AUTHOR.year)} <a href="${AUTHOR.url}" target="_blank" rel="noopener author">${esc(AUTHOR.name)}</a> · <a href="${AUTHOR.repo}" target="_blank" rel="noopener">código fuente en GitHub</a></span>
+    <b>Contenido</b><span><a href="${LICENSES.content.url}" target="_blank" rel="license">${LICENSES.content.name}</a> — ${LICENSES.content.desc} Puedes copiarlo, adaptarlo y compartirlo citando al autor y manteniendo la misma licencia.</span>
+    <b>Código</b><span><a href="${LICENSES.code.url}" target="_blank" rel="license">${LICENSES.code.name}</a> — ${LICENSES.code.desc}</span>
+    <b>Bibliotecas</b><span>Three.js r147 y OrbitControls, licencia MIT (© three.js authors), incrustadas en el archivo.</span></div>`;
+}
+function showDemoWelcome(){
+  openModal(`<span class="demo-badge">Demo creada con inteligencia artificial</span>
+    <h2 tabindex="-1">Bienvenida al Atlas 3D del Cerebro</h2>
+    <p class="lead">Este sitio es una <b>demostración</b>: el modelo 3D, la interfaz y los textos de estudio fueron generados con ayuda de inteligencia artificial (Claude, de Anthropic) bajo la dirección de ${esc(AUTHOR.name)}.</p>
+    <p>Está pensado como apoyo para estudiar neuroanatomía en Psicología. Las formas son aproximadas y los contenidos, aunque revisados, pueden contener errores: contrástalos siempre con tus manuales y con tu profesorado. No es material de diagnóstico.</p>
+    <h3>Licencias</h3>${licenseHTML()}
+    <div class="row" style="margin-top:14px;gap:8px"><button class="btn primary" id="demoOk">Entendido, empezar</button><button class="btn" id="demoGuide">Ver la guía de estudio</button></div>`,'Bienvenida');
+  const done=()=>{try{localStorage.setItem('atlas.welcomed','1');}catch(e){}};
+  $('#demoOk').onclick=()=>{done();closeModal();};
+  $('#demoGuide').onclick=()=>{done();closeModal();showGuide();};
+}
 function showAbout(){openModal(`
+  <span class="demo-badge">Demo creada con inteligencia artificial</span>
   <h2 tabindex="-1">Acerca de este atlas</h2>
-  <p>Atlas 3D didáctico del encéfalo humano orientado a estudiantes de Psicología. Versión del ${esc(BUILD_DATE)}. Funciona íntegramente en este archivo, sin conexión a internet.</p>
+  <p>Atlas 3D didáctico del encéfalo humano orientado a estudiantes de Psicología. Versión del ${esc(BUILD_DATE)}. Funciona íntegramente en este archivo, sin conexión a internet. Modelo, interfaz y contenidos generados con asistencia de Claude (Anthropic) bajo la dirección de ${esc(AUTHOR.name)}.</p>
+  <h3>Autoría y licencias</h3>${licenseHTML()}
   <h3>Cómo citar</h3>
-  <p class="cite">Atlas 3D del Cerebro: guía interactiva de neuroanatomía para Psicología (${esc(BUILD_DATE.slice(0,4))}). Aplicación HTML autocontenida.</p>
+  <p class="cite">${esc(AUTHOR.name)} (${esc(AUTHOR.year)}). <i>Atlas 3D del Cerebro: guía interactiva de neuroanatomía para Psicología</i> [demo creada con IA]. ${AUTHOR.repo}</p>
   <h3>Bibliografía de referencia</h3>
   <p>Las fichas indican el capítulo donde ampliar cada estructura en tres manuales habituales de la carrera. Los números de capítulo corresponden a estas ediciones y pueden variar en otras:</p>
   <ul>${Object.values(BOOKS).map(b=>`<li>${b.full}</li>`).join('')}</ul>
@@ -395,7 +414,7 @@ function showAbout(){openModal(`
   <h3>Opciones</h3>
   <ul><li><code>?calidad=baja</code> o <code>?calidad=alta</code> al final de la dirección fuerza la resolución del modelo.</li><li>La dirección cambia al explorar (<code>#…</code>): cópiala para compartir exactamente lo que ves (menú ⋯ → Copiar enlace).</li></ul>
   <h3>Créditos técnicos</h3>
-  <p>Gráficos 3D con <a href="https://threejs.org" target="_blank" rel="noopener">Three.js</a> r147 y OrbitControls (licencia MIT, © three.js authors), incrustados en este archivo. Modelo, interfaz y contenidos creados con asistencia de Claude (Anthropic).</p>`,'Acerca de');}
+  <p>Gráficos 3D con <a href="https://threejs.org" target="_blank" rel="noopener">Three.js</a> r147 y OrbitControls (licencia MIT, © three.js authors), incrustados en este archivo.</p>`,'Acerca de');}
 
 /* ---------- menú ⋯ ---------- */
 function toggleMenu(open){const m=$('#menu');const o=open===undefined?!m.classList.contains('open'):open;m.classList.toggle('open',o);$('#btnMore').setAttribute('aria-expanded',o);}
@@ -511,6 +530,7 @@ function initUI(){
   $('#search').onkeydown=e=>{if(e.key==='Enter'){const f=runSearch();if(f){f.visible=true;select(f,{focus:true,source:'list'});closeDrawers();}}};
   $('#searchClear').onclick=()=>{$('#search').value='';runSearch();$('#search').focus();};
   $('#showAll').onclick=showAllParts;
+  $('#creditAuthor').textContent=AUTHOR.name; $('#creditAuthor').href=AUTHOR.url; $('#creditCC').href=LICENSES.content.url; $('#creditAbout').onclick=showAbout;
   $('#btnGuide').onclick=showGuide; $('#btnGlossary').onclick=()=>showGlossary(); $('#btnReset').onclick=()=>resetAll();
   $('#btnTours').onclick=showTourMenu; $('#btnQuiz').onclick=()=>{ if(state.quiz) exitQuiz(); else showQuizMenu(); };
   window.addEventListener('resize',resize);

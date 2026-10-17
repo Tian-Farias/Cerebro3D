@@ -135,5 +135,12 @@ const BOOKS = {
   kw: {short:'Kolb y Whishaw', full:'Kolb, B. y Whishaw, I. Q. <i>Neuropsicología humana</i> (7.ª ed.). Médica Panamericana.'}
 };
 
+// Autoría y licencias
+const AUTHOR={name:'Cristian Farías',url:'https://www.linkedin.com/in/cristianfarias/',year:'2026',repo:'https://github.com/Tian-Farias/Cerebro3D'};
+const LICENSES={
+  content:{name:'CC BY-SA 4.0',url:'https://creativecommons.org/licenses/by-sa/4.0/deed.es',desc:'Textos, fichas, recorridos, casos y modelo 3D: Creative Commons Atribución-CompartirIgual 4.0 Internacional.'},
+  code:{name:'Apache 2.0',url:'https://www.apache.org/licenses/LICENSE-2.0',desc:'Código fuente de la aplicación: Apache License 2.0.'}
+};
+
 // INFO se rellena en info1.js, info2.js e info3.js
 const INFO = {};

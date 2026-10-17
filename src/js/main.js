@@ -21,6 +21,8 @@ async function init(){
   $('#loading').remove();
   window.__ready=true;
   restoreHash();
+  let welcomed=false; try{welcomed=localStorage.getItem('atlas.welcomed')==='1';}catch(e){}
+  if(!welcomed&&!new URLSearchParams(location.search).has('sinaviso')) showDemoWelcome();
   requestAnimationFrame(animate);
   window.__atlas={state,PART,PARTS,meshes,setView,select,applyState,applyStateNow,setExplode,setCortexOp,setCut,camera,controls,startTour,TOURS,startQuiz,exitQuiz,resetAll,CASES,focusParts};
 }

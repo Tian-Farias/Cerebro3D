@@ -1,5 +1,9 @@
 # Atlas 3D del Cerebro
 
+> **Demo creada con inteligencia artificial.** El modelo 3D, la interfaz y los textos de estudio fueron generados con ayuda de Claude (Anthropic) bajo la dirección de [Cristian Farías](https://www.linkedin.com/in/cristianfarias/). Material didáctico, no de diagnóstico.
+
+**Versión publicada:** https://tian-farias.github.io/Cerebro3D/
+
 Atlas 3D interactivo del encéfalo humano para estudiantes de Psicología. Un único archivo, **`cerebro.html`**, que funciona sin conexión: se abre con doble clic en cualquier navegador moderno (Chrome, Firefox, Edge, Safari) y también en el móvil.
 
 ## Qué incluye
@@ -11,6 +15,10 @@ Atlas 3D interactivo del encéfalo humano para estudiantes de Psicología. Un ú
 - **Autoevaluación** en tres modos (encuéntrala, ¿qué estructura es?, caso clínico con 28 casos), por grupo, con resumen y lista de repaso.
 - **Glosario** de ~60 términos, guía de estudio, enlace compartible a cualquier vista, captura PNG e impresión de fichas o del resumen completo.
 
+## Publicación
+
+El flujo [`.github/workflows/pages.yml`](.github/workflows/pages.yml) regenera `cerebro.html` y lo publica en GitHub Pages en cada *push* a `main` (también se puede lanzar a mano desde la pestaña *Actions*). La primera vez, el propio flujo activa Pages; si el repositorio lo impide, actívalo en *Settings → Pages → Source: GitHub Actions*.
+
 ## Estructura del proyecto
 
 ```
@@ -19,7 +27,7 @@ src/
   build.py            ← genera cerebro.html
   index.html          ← esqueleto HTML
   css/style.css
-  js/content.js       ← grupos, estructuras (PARTS) y libros de referencia
+  js/content.js       ← grupos, estructuras (PARTS), autoría y licencias
   js/info1-3.js       ← fichas (INFO)
   js/tours.js         ← recorridos, casos clínicos, glosario, cortes clásicos
   js/geometry.js      ← forma del cerebro, surcos, clasificación de regiones
@@ -40,8 +48,17 @@ Para añadir una estructura: entrada en `PARTS` (`content.js`), ficha en `INFO` 
 
 ## Opciones de URL
 
-- `cerebro.html?calidad=baja` / `?calidad=alta`: fuerza la resolución del modelo.
+- `?calidad=baja` / `?calidad=alta`: fuerza la resolución del modelo.
+- `?sinaviso`: no muestra el aviso de bienvenida de la demo.
 - El fragmento `#…` guarda la vista actual (estructura, cámara, corte, capas); el menú ⋯ → «Copiar enlace» lo copia.
+
+## Licencias
+
+- **Contenido** (textos, fichas, recorridos, casos clínicos, glosario y modelo 3D): [Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.es) — ver [`LICENSE-CONTENT.txt`](LICENSE-CONTENT.txt). Puedes copiarlo, adaptarlo y redistribuirlo citando a Cristian Farías y manteniendo la misma licencia.
+- **Código** (todo lo que hay en `src/` salvo `vendor/`, y el flujo de publicación): [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) — ver [`LICENSE`](LICENSE).
+- **Bibliotecas de terceros**: Three.js y OrbitControls, licencia MIT (© three.js authors).
+
+🄯 2026 [Cristian Farías](https://www.linkedin.com/in/cristianfarias/)
 
 ## Aviso
 
