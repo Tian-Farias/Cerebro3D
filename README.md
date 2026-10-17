@@ -4,6 +4,12 @@
 
 **Versión publicada:** https://tian-farias.github.io/Cerebro3D/
 
+## Demostración
+
+![Demostración del atlas: giro, selección de estructuras, separación de piezas y recorridos](docs/demo.gif)
+
+[Ver el vídeo completo en MP4 (35 s)](https://tian-farias.github.io/Cerebro3D/docs/demo.mp4)
+
 Atlas 3D interactivo del encéfalo humano para estudiantes de Psicología. Un único archivo, **`cerebro.html`**, que funciona sin conexión: se abre con doble clic en cualquier navegador moderno (Chrome, Firefox, Edge, Safari) y también en el móvil.
 
 ## Qué incluye

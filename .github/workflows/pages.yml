@@ -30,6 +30,7 @@ jobs:
           cp cerebro.html _site/index.html
           cp cerebro.html _site/cerebro.html
           cp LICENSE LICENSE-CONTENT.txt README.md _site/
+          cp -r docs _site/docs
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
         with:
